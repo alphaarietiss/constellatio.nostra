@@ -1,0 +1,51 @@
+body{
+font-family: Arial;
+background: linear-gradient(120deg,#ff9a9e,#fad0c4);
+text-align:center;
+padding:40px;
+}
+
+button{
+padding:15px 30px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#ff4d6d;
+color:white;
+cursor:pointer;
+}
+
+#galeria{
+margin-top:30px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+}
+
+#galeria img{
+width:120px;
+height:120px;
+object-fit:cover;
+border-radius:10px;
+opacity:0;
+transform:scale(0.5);
+transition:0.5s;
+}
+
+#galeria img.show{
+opacity:1;
+transform:scale(1);
+}
+
+#carta{
+display:none;
+margin-top:40px;
+background:white;
+padding:25px;
+border-radius:15px;
+max-width:500px;
+margin-left:auto;
+margin-right:auto;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
