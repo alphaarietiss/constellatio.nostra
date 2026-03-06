@@ -1,61 +1,68 @@
-const botao = document.getElementById("startBtn");
-const galeria = document.getElementById("galeria");
-const carta = document.getElementById("carta");
+const btn = document.getElementById('btn-inicio');
+const carta = document.getElementById('container-carta');
 
-const fotos = [
-"fotos/foto1.jpg",
-"fotos/foto2.jpg",
-"fotos/foto3.jpg",
-"fotos/foto4.jpg",
-"fotos/foto5.jpg"
-"fotos/foto6.jpg"
-"fotos/foto7.jpg"
-"fotos/foto8.jpg"
-"fotos/foto9.jpg"
-"fotos/foto10.jpg"
-"fotos/foto11.jpg"
-"fotos/foto12.jpg"
-"fotos/foto13.jpg"
-"fotos/foto14.jpg"
-"fotos/foto15.jpg"
-"fotos/foto16.jpg"
-"fotos/foto17.jpg"
-];
+// Função para gerar os nomes das 17 fotos automaticamente
+const gerarCaminhosFotos = () => {
+    const caminhos = [];
+    for (let i = 1; i <= 17; i++) {
+        caminhos.push(`fotos/foto${i}.jpg`);
+    }
+    return caminhos;
+};
 
-botao.addEventListener("click", () => {
+const listaFotos = gerarCaminhosFotos();
 
-botao.style.display = "none";
+btn.addEventListener('click', () => {
+    btn.style.display = 'none';
+    
+    // Vamos usar 34 fotos para o coração ficar bem preenchido (repete cada foto 2x)
+    const totalPosicoes = 34; 
+    
+    for (let i = 0; i < totalPosicoes; i++) {
+        setTimeout(() => {
+            const img = document.createElement('img');
+            // Pega a foto atual usando o resto da divisão para não estourar o índice 17
+            img.src = listaFotos[i % listaFotos.length];
+            img.className = 'mini-foto';
+            
+            // Início: Chuva caindo do topo em lugares aleatórios
+            img.style.left = Math.random() * window.innerWidth + 'px';
+            img.style.top = '-150px';
+            img.style.opacity = '0';
+            document.body.appendChild(img);
 
-let i = 0;
+            // Transição para o formato de coração
+            setTimeout(() => {
+                const angulo = (i / totalPosicoes) * Math.PI * 2;
+                
+                // Equação paramétrica do coração (ajustada para telas menores também)
+                const x = 16 * Math.pow(Math.sin(angulo), 3);
+                const y = -(13 * Math.cos(angulo) - 5 * Math.cos(2 * angulo) - 2 * Math.cos(3 * angulo) - Math.cos(4 * angulo));
+                
+                const centroX = window.innerWidth / 2;
+                const centroY = window.innerHeight / 2 - 50;
+                
+                // Ajusta o tamanho do coração baseado na largura da tela
+                const escala = window.innerWidth < 600 ? 10 : 18; 
 
-function mostrarFotos(){
+                img.style.opacity = '1';
+                img.style.left = (centroX + x * escala - 30) + 'px'; // -30 para centralizar a foto de 60px
+                img.style.top = (centroY + y * escala - 30) + 'px';
+                img.style.transform = `rotate(${Math.random() * 20 - 10}deg) scale(1.1)`;
+            }, 100);
 
-if(i < fotos.length){
+        }, i * 200); // Intervalo de surgimento cinematográfico
+    }
 
-const img = document.createElement("img");
-img.src = fotos[i];
-
-galeria.appendChild(img);
-
-setTimeout(()=>{
-img.classList.add("show");
-},100);
-
-i++;
-
-setTimeout(mostrarFotos,1000);
-
-}else{
-
-setTimeout(()=>{
-carta.style.display = "block";
-},1000);
-
-}
-
-}
-
-mostrarFotos();
-
-
+    // Liberação da carta
+    setTimeout(() => {
+        carta.classList.add('visivel');
+        document.body.style.overflowY = 'auto'; // Habilita o scroll
+        
+        // Rola suavemente até a carta
+        window.scrollTo({
+            top: carta.offsetTop,
+            behavior: 'smooth'
+        });
+    }, 9000); // Tempo para o coração se formar antes de descer
 });
