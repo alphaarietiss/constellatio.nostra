@@ -8,6 +8,18 @@ const fotos = [
 "fotos/foto3.jpg",
 "fotos/foto4.jpg",
 "fotos/foto5.jpg"
+"fotos/foto6.jpg"
+"fotos/foto7.jpg"
+"fotos/foto8.jpg"
+"fotos/foto9.jpg"
+"fotos/foto10.jpg"
+"fotos/foto11.jpg"
+"fotos/foto12.jpg"
+"fotos/foto13.jpg"
+"fotos/foto14.jpg"
+"fotos/foto15.jpg"
+"fotos/foto16.jpg"
+"fotos/foto17.jpg"
 ];
 
 botao.addEventListener("click", () => {
@@ -44,5 +56,6 @@ carta.style.display = "block";
 }
 
 mostrarFotos();
+
 
 });
